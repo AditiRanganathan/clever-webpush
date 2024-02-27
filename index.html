@@ -87,6 +87,11 @@
 		clevertap.event.push("web native display event triggered");
 	}
 
+		function webexit()
+	{
+		clevertap.event.push("web exit intent event triggered");
+	}
+
 		</script>
 	
   <link rel="stylesheet" href="style.css">
@@ -102,6 +107,7 @@
 		<button id="inbox" onclick="webinbox()">Clevertap web inbox</button><br><br>
 		<div id="nativedisplay">
 		<button onclick="webnative()">Clevertap web native display</button><br>
+		<button onclick="webexit()">Clevertap web exit intent</button><br>
 		</div>
 	</div>
 </body>
