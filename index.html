@@ -56,6 +56,19 @@
   });
 			}
 
+		function webpopup()
+	{
+		clevertap.event.push("Aditi pop event triggered");
+		clevertap.notifications.push({
+		"titleText": "Would you like to receive Push Notifications?",
+		"bodyText": "We promise to only send you relevant content and give you updates on your transactions",
+		"okButtonText": "Sign me up!",
+		"rejectButtonText": "No thanks",
+		"okButtonColor":"#F28046",
+		"serviceWorkerPath": "./serviceWorkerPath.js"
+});
+	}
+
 
 		</script>
 	
@@ -67,7 +80,7 @@
 		<p>Welcome to my demo webpage</p>
 		<button>Clevertap click</button><br><br>
 		<button onclick="btn()">Clevertap push</button><br><br>
-		<button>Clevertap popup</button><br>
+		<button onclick="webpopup()">Clevertap popup</button><br>
 	</div>
 </body>
 
