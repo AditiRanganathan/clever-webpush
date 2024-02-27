@@ -41,15 +41,8 @@
 	const app = initializeApp(firebaseConfig);
 	const analytics = getAnalytics(app);
   </script>
-  <link rel="stylesheet" href="style.css">
-</head>
 
-<body>
-	<div>
-		<p>Welcome to my demo webpage</p>
-		<button>Clevertap click</button><br><br>
-		<button onclick="myfunction()">Clevertap push</button><br><br>
-		<script>
+	<script>
 			function myfunction()
 			{
 				clevertap.event.push("Aditi push event triggered");
@@ -65,6 +58,15 @@
 
 
 		</script>
+	
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div>
+		<p>Welcome to my demo webpage</p>
+		<button>Clevertap click</button><br><br>
+		<button onclick="myfunction()">Clevertap push</button><br><br>
 		<button>Clevertap popup</button><br>
 	</div>
 </body>
