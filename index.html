@@ -50,17 +50,17 @@
 		<button>Clevertap click</button><br><br>
 		<button onclick="myfunction()">Clevertap push</button><br><br>
 		<script>
-			function myfunction()
+			function myfunction ()
 			{
-				clevertap.event.push("Aditi github push event triggered");
+				clevertap.event.push("Aditi push event triggered");
 				clevertap.notifications.push({
 				"titleText": "Would you like to receive Push Notifications?",
 				"bodyText": "We promise to only send you relevant content and give you updates on your transactions",
 				"okButtonText": "Sign me up!",
 				"rejectButtonText": "No thanks",
 				"okButtonColor":"#F28046",
-				"serviceWorkerPath”: “./serviceWorkerPath.js” 
- 			 });
+				"serviceWorkerPath”: “./serviceWorkerPath.js”
+  });
 			}
 
 
