@@ -72,19 +72,7 @@
   	});
 			}
 
-		// let customNotificationPayload = {
-		//     msgId: "1710746110_20240318"; // required
-		//  }
 		
-		// clevertap.notificationCallback = function(msg){
-		//       //raise the notification viewed and clicked events in the callback
-		//       clevertap.renderNotificationViewed(customNotificationPayload);
-		//       console.log(JSON.stringify(msg));            //your custom rendering implementation here
-		//       var $button = jQuery("<button onclick="webpopup()">Clevertap popup</button>");   //element on whose click you want to raise the notification clicked event
-		//       $button.click(function(){
-		//          clevertap.renderNotificationClicked(customNotificationPayload);
-		//      });
-		// };
 		function webpopup()
 	{
 		clevertap.event.push("Pop event triggered for test");
