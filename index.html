@@ -4,7 +4,7 @@
 	<title>Simple web page</title>
 	<script type="text/javascript">
 		var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
-		clevertap.account.push({"id": "ZWW-WWW-WWRZ"});
+		clevertap.account.push({"id": "TEST-65W-KK5-9W7Z"});
 		clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
 		clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
 			(function () {
@@ -58,7 +58,7 @@
 
 		function webpopup()
 	{
-		clevertap.event.push("Aditi pop event triggered");
+		clevertap.event.push("Pop event triggered for test");
 		clevertap.notifications.push({
 		"titleText": "Would you like to receive Push Notifications?",
 		"bodyText": "We promise to only send you relevant content and give you updates on your transactions",
