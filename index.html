@@ -16,6 +16,51 @@
 					s.parentNode.insertBefore(wzrk, s);
 					
 			})();
+
+
+	const customPopupContent = {
+	    "msgContent": {
+	        "html": "<div><h2>Welcome!</h2><p>This is a custom pop-up message.</p></div>",
+	        "type": 1,
+	        "templateType": "banner",
+	        "title": "Special Offer!",
+	        "description": "Don't miss out on our limited-time offer. Shop now and get 20% off!",
+	        "kv": {
+	            "name": "Emma",
+	            "user_id": "123456",
+	            "membership_level": "Gold"
+	        }
+	    },
+    	"msgId": "1710746110_20240318" 
+};
+
+	 let customNotificationPayload = {
+            msgId: '', // required, should be filled dynamically
+            pivotId: '' // optional
+        };
+
+        clevertap.notificationCallback = function(msg) {
+            // Extract msgId from the incoming message
+            customNotificationPayload.msgId = msg.msgId;
+            // Optionally extract pivotId if available in the message
+            if (msg.pivotId) {
+                customNotificationPayload.pivotId = msg.pivotId;
+            }
+            
+            // Raise the notification viewed event
+            clevertap.renderNotificationViewed(customNotificationPayload);
+            
+            // Log the incoming message
+            console.log(JSON.stringify(msg));
+
+            // Create a button element to raise notification clicked event
+            var $button = jQuery("<button></button>");
+            $button.click(function(){
+                clevertap.renderNotificationClicked(customNotificationPayload);
+                // You can add additional logic here
+            });
+        };
+		
    </script>
 
 <script type="module">
@@ -109,6 +154,12 @@
 		clevertap.event.push("web exit intent event triggered");
 	}
 
+		function custompopup() 
+	{
+		    clevertap.event.push("Pop event triggered for test");
+		    clevertap.notifications.push(customPopupContent);
+	}
+
 		</script>
 	
   <link rel="stylesheet" href="style.css">
@@ -121,6 +172,7 @@
 		<button>Clevertap click</button><br><br>
 		<button onclick="btn()">Clevertap push</button><br><br>
 		<button onclick="webpopup()">Clevertap popup</button><br><br>
+		<button onclick="custompopup()">Clevertap popup</button><br><br>
 		<button id="inbox" onclick="webinbox()">Clevertap web inbox</button><br><br>
 		<div id="nativedisplay">
 		<button onclick="webnative()">Clevertap web native display</button><br>
