@@ -105,8 +105,15 @@
 	{
 		clevertap.event.push("web native display event triggered");
 		document.addEventListener("CT_web_native_display", function(event) {
-    		console.log(event);
-});
+		  const data = event.detail;
+			const topic = data.kv.topic;
+			switch (topic) {
+				case "Cart drop-off": {
+					renderCartDropOffPersonalisationCampaign(data)
+					break;
+		   	}
+		  }
+		});
 		
 	}
 
@@ -132,17 +139,6 @@
 			     });
 			};
 		}
-
-		document.addEventListener("CT_web_native_display", function(event) {
-		  const data = event.detail;
-			const topic = data.kv.topic;
-			switch (topic) {
-				case "Cart drop-off": {
-					renderCartDropOffPersonalisationCampaign(data)
-					break;
-		   	}
-		  }
-		});
 
 		
 		function renderCartDropOffPersonalisationCampaign(data) {
