@@ -17,6 +17,20 @@
 					s.parentNode.insertBefore(wzrk, s);
 					
 			})();
+
+		let customNotificationPayload = {
+			    msgId: ' '
+			 }
+			
+			clevertap.notificationCallback = function(msg){
+			      //raise the notification viewed and clicked events in the callback
+			      clevertap.renderNotificationViewed(customNotificationPayload);
+			      console.log(JSON.stringify(msg));            //your custom rendering implementation here
+			      var $button = jQuery("<button></button>");   //element on whose click you want to raise the notification clicked event
+			      $button.click(function(){
+			         clevertap.renderNotificationClicked(customNotificationPayload);
+			     });
+			};
 		
    </script>
 
@@ -114,19 +128,6 @@
 		function custompopup()
 		{
 			clevertap.event.push("Pop event triggered for test");
-			let customNotificationPayload = {
-			    msgId: ' '
-			 }
-			
-			clevertap.notificationCallback = function(msg){
-			      //raise the notification viewed and clicked events in the callback
-			      clevertap.renderNotificationViewed(customNotificationPayload);
-			      console.log(JSON.stringify(msg));            //your custom rendering implementation here
-			      var $button = jQuery("<button></button>");   //element on whose click you want to raise the notification clicked event
-			      $button.click(function(){
-			         clevertap.renderNotificationClicked(customNotificationPayload);
-			     });
-			};
 		}
 		
 
