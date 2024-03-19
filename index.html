@@ -16,22 +16,6 @@
 					s.parentNode.insertBefore(wzrk, s);
 					
 			})();
-
-
-	let customNotificationPayload = {
-	    msgId: string; // required
-	    pivotId?: string; // optional - String value containing an A/B testing campaign's variant name.
-	 }
-
-	clevertap.notificationCallback = function(msg){
-	      //raise the notification viewed and clicked events in the callback
-	      clevertap.renderNotificationViewed(customNotificationPayload);
-	      console.log(JSON.stringify(msg));            //your custom rendering implementation here
-	      var $button = jQuery("<button></button>");   //element on whose click you want to raise the notification clicked event
-	      $button.click(function(){
-	         clevertap.renderNotificationClicked(customNotificationPayload);
-	     });
-};
 		
    </script>
 
