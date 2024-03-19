@@ -132,7 +132,7 @@
 			};
 		}
 
-		document.addEventListener("web native display event triggered", function(event) {
+		document.addEventListener("CT_web_native_display", function(event) {
 		  const data = event.detail;
 			const topic = data.kv.topic;
 			console.log("Topic:", topic);
