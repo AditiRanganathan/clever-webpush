@@ -104,6 +104,9 @@
 		function webnative()
 	{
 		clevertap.event.push("web native display event triggered");
+		document.addEventListener("web native display event triggered", function(event) {
+    			console.log(event);
+		});
 	}
 
 		function webexit()
