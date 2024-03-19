@@ -112,9 +112,9 @@
 
 		function custompopup()
 		{
+			clevertap.event.push("Pop event triggered for test");
 			let customNotificationPayload = {
 			    msgId: string; // required
-			    pivotId?: string; // optional - String value containing an A/B testing campaign's variant name.
 			 }
 			
 			clevertap.notificationCallback = function(msg){
