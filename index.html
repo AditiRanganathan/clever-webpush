@@ -150,7 +150,9 @@
 		  userNameEl.innerText = name;
 		  const productNameEl = containerEl.querySelector('#product-name'); // Corrected from getElementById to querySelector
 		  productNameEl.innerText = product;
-
+		  const imageURL = data.kv.ImageURL;
+		  const imageEl = document.getElementById('image-container');
+		  imageEl.src = imageURL;
 		  clevertap.renderNotificationViewed(data);
 		  containerEl.addEventListener('click', () => {
 		  	clevertap.renderNotificationClicked(data)
@@ -165,7 +167,7 @@
 <body>
 	<div id="container">
 	<div class="close">&times;</div>
-	  <img src="https://wi.wallpapertip.com/wsimgs/33-332564_foto-kota-metropolita-keren-tokyo-tokyo-with-love.jpg"/>
+	  <img id="image-container" src="https://wi.wallpapertip.com/wsimgs/33-332564_foto-kota-metropolita-keren-tokyo-tokyo-with-love.jpg"/>
 	  <div class="message">
 	  	Hello <span id="user-name">user</span>,
 	   	<p>Still thinking about the <span id="product-name">item</span> in your cart?</p>
