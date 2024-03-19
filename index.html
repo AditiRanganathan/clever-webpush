@@ -132,6 +132,7 @@
 		document.addEventListener("web native display event triggered", function(event) {
 		  const data = event.detail;
 			const topic = data.kv.topic;
+			console.log("Topic:", topic);
 			switch (topic) {
 				case "Cart drop-off": {
 					renderCartDropOffPersonalisationCampaign(data)
@@ -142,7 +143,7 @@
 		
 		function renderCartDropOffPersonalisationCampaign(data) {
 		  const name = data.kv.Name;
-		  const product = data.kv.Cart;
+		  const product = data.kv.Product;
 		  const containerEl = document.getElementById('container')
 		  const userNameEl = containerEl.getElementById('user-name')
 		  usernameEl.innerText = name
