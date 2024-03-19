@@ -18,48 +18,20 @@
 			})();
 
 
-	const customPopupContent = {
-	    "msgContent": {
-	        "html": "<div><h2>Welcome!</h2><p>This is a custom pop-up message.</p></div>",
-	        "type": 1,
-	        "templateType": "banner",
-	        "title": "Special Offer!",
-	        "description": "Don't miss out on our limited-time offer. Shop now and get 20% off!",
-	        "kv": {
-	            "name": "Emma",
-	            "user_id": "123456",
-	            "membership_level": "Gold"
-	        }
-	    },
-    	"msgId": "1710746110_20240318" 
+	let customNotificationPayload = {
+	    msgId: string; // required
+	    pivotId?: string; // optional - String value containing an A/B testing campaign's variant name.
+	 }
+
+	clevertap.notificationCallback = function(msg){
+	      //raise the notification viewed and clicked events in the callback
+	      clevertap.renderNotificationViewed(customNotificationPayload);
+	      console.log(JSON.stringify(msg));            //your custom rendering implementation here
+	      var $button = jQuery("<button></button>");   //element on whose click you want to raise the notification clicked event
+	      $button.click(function(){
+	         clevertap.renderNotificationClicked(customNotificationPayload);
+	     });
 };
-
-	 let customNotificationPayload = {
-            msgId: '', // required, should be filled dynamically
-            pivotId: '' // optional
-        };
-
-        clevertap.notificationCallback = function(msg) {
-            // Extract msgId from the incoming message
-            customNotificationPayload.msgId = msg.msgId;
-            // Optionally extract pivotId if available in the message
-            if (msg.pivotId) {
-                customNotificationPayload.pivotId = msg.pivotId;
-            }
-            
-            // Raise the notification viewed event
-            clevertap.renderNotificationViewed(customNotificationPayload);
-            
-            // Log the incoming message
-            console.log(JSON.stringify(msg));
-
-            // Create a button element to raise notification clicked event
-            var $button = jQuery("<button></button>");
-            $button.click(function(){
-                clevertap.renderNotificationClicked(customNotificationPayload);
-                // You can add additional logic here
-            });
-        };
 		
    </script>
 
