@@ -128,49 +128,32 @@
 			     });
 			};
 		}
+
+		document.addEventListener("web native display event triggered", function(event) {
+		  const data = event.detail;
+			const topic = data.kv.topic;
+			switch (topic) {
+				case "Cart drop-off": {
+					renderCartDropOffPersonalisationCampaign(data)
+					break;
+		   	}
+		  }
+		});
 		
-
-	// JavaScript
-
-// Define a function to render personalized content for a cart drop-off event
-function renderCartDropOffPersonalisationCampaign(data) {
-  // Extract data from the key-value pair
-  const name = data.kv.Name;
-  const product = data.kv.Cart;
-
-  // Access DOM elements
-  const containerEl = document.getElementById('container');
-  const userNameEl = containerEl.querySelector('#user-name'); // Fixing a typo here, should be querySelector
-  const productNameEl = containerEl.querySelector('#product-name');
-
-  // Update DOM with personalized data
-  userNameEl.innerText = name;
-  productNameEl.innerText = product;
-
-  // Notify CleverTap that the notification is viewed
-  clevertap.renderNotificationViewed(data);
-
-  // Add event listener for notification click
-  containerEl.addEventListener('click', () => {
-    clevertap.renderNotificationClicked(data);
-  });
+		function renderCartDropOffPersonalisationCampaign(data) {
+		  const name = data.kv.Name;
+		  const product = data.kv.Cart;
+		  const containerEl = document.getElementById('container')
+		  const userNameEl = containerEl.getElementById('user-name')
+		  usernameEl.innerText = name
+		  const productNameEl = containerEl.getElementById('product-name')
+		  productNameEl.innerText = product 
+		  clevertap.renderNotificationViewed(data);
+		  containerEl.addEventListener('click', () => {
+		  	clevertap.renderNotificationClicked(data)
+		  });
 }
-
-// Add event listener for CleverTap key-value pair event
-document.addEventListener("CT_web_native_display", function(event) {
-  const data = event.detail;
-  const topic = data.kv.topic;
-  
-  // Determine the topic and call corresponding rendering function
-  switch (topic) {
-    case "Cart drop-off": {
-      renderCartDropOffPersonalisationCampaign(data);
-      break;
-    }
-    // Add more cases for other topics if necessary
-  }
-});
-
+		
 		</script>
 	
   <link rel="stylesheet" href="style.css">
