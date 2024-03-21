@@ -64,12 +64,12 @@
 		function btn()
 			{
 				clevertap.event.push("Aditi push event triggered");
-				HashMap<String, Object> prodViewedAction = new HashMap<String, Object>();
-				prodViewedAction.put("Product Name", "Casio Chronograph Watch");
-				prodViewedAction.put("Category", "Mens Accessories");
-				prodViewedAction.put("Price", 59.99);
-				prodViewedAction.put("Date", new java.util.Date());
-				cleverTap.pushEvent("Product viewed", prodViewedAction);
+				clevertap.event.push("Product viewed", {
+				    "Product name": "Shoes",
+				    "Category": "Women Accessories",
+				    "Price": 65.99,
+				    "Date": new Date()
+				});
 				clevertap.notifications.push({
 				"titleText": "Would you like to receive Push Notifications?",
 				"bodyText": "We promise to only send you relevant content and give you updates on your transactions",
