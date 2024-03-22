@@ -199,6 +199,14 @@
 		function addvalue(){
 			clevertap.handleIncrementValue('Price', 10);
 		}
+
+		function adduser(){
+			// If the property is not available, this call will return undefined
+			var name = clevertap.profile.getAttribute("Name");
+			console.log("Name:"+name);
+			var email = clevertap.profile.getAttribute("Email");
+			console.log("Email:"+email);
+		}
 		
 		</script>
 	
