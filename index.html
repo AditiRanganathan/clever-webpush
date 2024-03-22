@@ -6,6 +6,7 @@
 	<script type="text/javascript">
 		var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
 		clevertap.account.push({"id": "TEST-65W-KK5-9W7Z"});
+		clevertap.enablePersonalization = true;
 		clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
 		clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
 			(function () {
@@ -60,7 +61,13 @@
 		   "MSG-whatsapp": true,              // Enable WhatsApp notifications
 		 }
 		})
-		
+
+		// If the property is not available, this call will return undefined
+		var name = clevertap.profile.getAttribute("Name");
+		console.log("Name is "+name);
+		// If the property is not available, this call will return undefined
+		var email = clevertap.profile.getAttribute("Email");
+		console.log("Email is "+email);
 		function btn()
 			{
 				clevertap.event.push("Aditi push event triggered");
