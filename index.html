@@ -81,7 +81,7 @@
 		    clevertap.getLocation(lat, lng);
 		}
 	
-		clevertap.removeValueForKey("Location");
+		
 		function btn()
 			{
 				clevertap.event.push("Aditi push event triggered");
@@ -190,6 +190,14 @@
 		function customhtmlpop(){
 			clevertap.event.push("Custom Pop event triggered for clevertap");
 		}
+
+		function removeprop(){
+			clevertap.removeValueForKey("Age");
+		}
+
+		function addvalue(){
+			clevertap.handleIncrementValue('Price', 10);
+		}
 		
 		</script>
 	
@@ -221,6 +229,8 @@
 		</div><br><br>
 		<button onclick="webexit()">Clevertap web exit intent</button><br><br>
 		<button onclick="customhtmlpop()">Clevertap custom popup</button>
+		<button onclick="removeprop()">Remove</button>
+		<button onclick="removeprop()">Increment Price</button>
 	</div>
 </div>
 </body>
