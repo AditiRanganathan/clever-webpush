@@ -63,7 +63,7 @@
 
 		if ("geolocation" in navigator) {
     		// Request user's current position
-		    navigator.geolocation.getCurrentPosition(success, error);
+		    navigator.geolocation.getCurrentPosition(success);
 		} else {
 		    console.error('Geolocation is not supported by your browser');
 		}
