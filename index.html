@@ -207,6 +207,36 @@
 			var email = clevertap.profile.getAttribute("Email");
 			console.log("Email:"+email);
 		}
+
+		function addevent(){
+			clevertap.event.push("Charged", {
+			    "Amount": 700,
+			    "Payment mode": "Credit Card",
+			    "Charged ID": 123678,
+			    "Items": [
+			        {
+			            "Category": "Books",
+			            "Book name": "Harry Potter",
+			            "Quantity": 1,
+				    "Author name":"J K Rowling"
+			        },
+			        {
+			            "Category": "Books",
+			            "Book name": "2 states",
+			            "Quantity": 2,
+				    "Author name":"Chetan Bhagat"
+			        },
+			        {
+			            "Category": "Books",
+			            "Book name": "Experiments of Truth",
+			            "Quantity": 5,
+				    "Author name":"Mahatma Gandhi"
+			        }
+			    ]
+		
+			});
+			
+		}
 		
 		</script>
 	
@@ -241,6 +271,7 @@
 		<button onclick="removeprop()">Remove</button>
 		<button onclick="addvalue()">Increment Price</button>
 		<button onclick="adduser()">Personalization</button>
+		<button onclick="addevent()">Charged event</button>
 	</div>
 </div>
 </body>
