@@ -47,6 +47,7 @@
   </script>
 
 	<script>
+		function userProfile(){
 		clevertap.onUserLogin.push({
 		 "Site": {
 		   "Name": "Shruti Mishra",            // String
@@ -70,6 +71,7 @@
 		   "Subscription": "silver"
 		 }
 		});
+		}
 
 		clevertap.event.push("Anonymous event triggered for test");
 		if ("geolocation" in navigator) {
@@ -261,7 +263,7 @@
 	<div id="clever">
 		<p>Welcome to my demo webpage</p>
 		<div class="native"></div>
-		<button>Clevertap click</button><br><br>
+		<button nclick="userProfile()">User Profile</button><br><br>
 		<button onclick="btn()">Clevertap push</button><br><br>
 		<button onclick="webpopup()">Clevertap popup</button><br><br>
 		<button onclick="custompopup()">Clevertap popup</button><br><br>
