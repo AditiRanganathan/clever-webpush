@@ -196,16 +196,28 @@
 		  const imageEl = document.getElementById('image-container');
 		  imageEl.src = imageURL;
 		  const redirectURL = data.kv.RedirectURL;
+		  console.log("Extracted Name:", name);
+	          console.log("Extracted Product:", product);
+	          console.log("Extracted Image URL:", imageURL);
+	          console.log("Extracted Redirect URL:", redirectURL);
+		  console.log("Image element:", imageEl);
+
 		  clevertap.renderNotificationViewed(data);
 		  containerEl.addEventListener('click', () => {
 		  	clevertap.renderNotificationClicked(data);
 		  });
 
-		  imageEl.addEventListener('click', () => {
-		        if (redirectURL) {
-		            window.location.href = redirectURL;
-		        }
-		    });
+		  if (imageEl) {
+	                imageEl.addEventListener('click', () => {
+	                    if (redirectURL) {
+	                        console.log(`Redirecting to: ${redirectURL}`); // Debugging log
+	                        window.location.href = redirectURL;
+	                    }
+	                });
+	            } else {
+	                console.error('Image element not found.');
+	            }
+
 		}
 
 		function customhtmlpop(){
