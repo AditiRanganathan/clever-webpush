@@ -195,10 +195,17 @@
 		  const imageURL = data.kv.ImageURL;
 		  const imageEl = document.getElementById('image-container');
 		  imageEl.src = imageURL;
+		  const redirectURL = data.kv.RedirectURL;
 		  clevertap.renderNotificationViewed(data);
 		  containerEl.addEventListener('click', () => {
 		  	clevertap.renderNotificationClicked(data)
 		  });
+
+		imageEl.addEventListener('click', () => {
+		        if (redirectURL) {
+		            window.location.href = redirectURL;
+		        }
+		    });
 }
 
 		function customhtmlpop(){
@@ -275,7 +282,7 @@
 	  }
 
 /* For scroll bar to be visible always  */
- 	  ::-webkit-scrollbar {
+/*  	  ::-webkit-scrollbar {
 	  -webkit-appearance: none;
 	  width: 15px;
 	}
@@ -284,7 +291,7 @@
 		  background-color: rgba(0, 0, 0, .5);
 		  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 		} 
-	</style>
+	</style> */
 
 	
 	<div id="container">
