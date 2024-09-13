@@ -185,6 +185,7 @@
 
 		
 		function renderCartDropOffPersonalisationCampaign(data) {
+		  console.log("Received data:", data);
 		  const name = data.kv.Name;
 		  const product = data.kv.Product;
 		  const containerEl = document.getElementById('container')
@@ -195,7 +196,7 @@
 		  const imageURL = data.kv.ImageURL;
 		  const imageEl = document.getElementById('image-container');
 		  imageEl.src = imageURL;
-		  const redirectURL = data.kv.RedirectURL;
+		  const redirectURL = data.kv.redirectURL;
 		  console.log("Extracted Name:", name);
 	          console.log("Extracted Product:", product);
 	          console.log("Extracted Image URL:", imageURL);
