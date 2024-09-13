@@ -198,15 +198,15 @@
 		  const redirectURL = data.kv.RedirectURL;
 		  clevertap.renderNotificationViewed(data);
 		  containerEl.addEventListener('click', () => {
-		  	clevertap.renderNotificationClicked(data)
+		  	clevertap.renderNotificationClicked(data);
 		  });
 
-		imageEl.addEventListener('click', () => {
+		  imageEl.addEventListener('click', () => {
 		        if (redirectURL) {
 		            window.location.href = redirectURL;
 		        }
 		    });
-}
+		}
 
 		function customhtmlpop(){
 			clevertap.event.push("Custom Pop event triggered for clevertap");
@@ -290,8 +290,8 @@
 		  border-radius: 4px;
 		  background-color: rgba(0, 0, 0, .5);
 		  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-		} 
-	</style> */
+		} */
+	</style> 
 
 	
 	<div id="container">
