@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+	</script>
 	<!-- Google Tag Manager -->
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -254,7 +257,15 @@
 			});
 			
 		}
-		
+
+		function gtmUserProfile()
+			{
+				datalayer.push({'event':'gtmUserProfile Pushed'});
+				dataLayer.push({'name': 'Akiya'});
+				dataLayer.push({'email': 'akiya@clevertap.com'});
+				dataLayer.push({'identity': 18});
+				dataLayer.push({'phone': '+919922902191'});
+			}
 		</script>
 	
   <link rel="stylesheet" href="style.css">
@@ -313,6 +324,7 @@
 		<button onclick="webnative()">Clevertap web native display</button><br>
 		</div><br><br>
 		<button onclick="webexit()">Clevertap web exit intent</button><br><br>
+		<button onclick="gtmUserProfile()">GTM User Profile</button><br><br>
 		<button onclick="customhtmlpop()">Clevertap custom popup</button>
 		<button onclick="removeprop()">Remove</button>
 		<button onclick="addvalue()">Increment Price</button>
