@@ -260,11 +260,13 @@
 
 		function gtmUserProfile()
 			{
+				console.log('start gtmUserProfile called');
 				dataLayer.push({'name': 'Akiya'});
 				dataLayer.push({'email': 'akiya@clevertap.com'});
 				dataLayer.push({'identity': 18});
 				dataLayer.push({'phone': '+919922902191'});
 				dataLayer.push({'event':'gtmUserProfile Pushed'});
+				console.log('end gtmUserProfile called');
 			}
 		</script>
 	
