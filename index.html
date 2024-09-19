@@ -273,6 +273,11 @@
 			{
 				dataLayer.push({'event':'gtmUserEvent Pushed'});
 			}
+
+		function gtmWebEventPush()
+			{
+				dataLayer.push({'event':'gtmWebPushEvent Pushed'});
+			}
 		
 		</script>
 	
@@ -334,6 +339,7 @@
 		<button onclick="webexit()">Clevertap web exit intent</button><br><br>
 		<button onclick="gtmUserProfile()">GTM User Profile</button><br><br>
 		<button onclick="gtmEventPush()">GTM User Event</button><br><br>
+		<button onclick="gtmWebEventPush()">GTM Web Push Event</button><br><br>
 		<button onclick="customhtmlpop()">Clevertap custom popup</button>
 		<button onclick="removeprop()">Remove</button>
 		<button onclick="addvalue()">Increment Price</button>
