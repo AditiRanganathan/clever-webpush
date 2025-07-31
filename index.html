@@ -136,6 +136,33 @@
 	<div id="clever">
 		<p>Welcome to my demo webpage</p>
 		<div class="native"></div>
+		<body>
+
+  <form id="loginForm">
+    <label for="identity">Identity (unique):</label><br>
+    <input type="text" id="identity" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" required><br><br>
+
+    <label for="phone">Phone:</label><br>
+    <input type="text" id="phone" required><br><br>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <br>
+  <button onclick="logoutUser()">Logout</button>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const identity = document.getElementById("identity").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      loginAsUser(identity, email, phone);
+    });
+  </script>
 		<button onclick="userProfile()">User Profile</button><br><br>
 		<button onclick="btn()">Clevertap push</button><br><br>
 		<button onclick="webpopup()">Clevertap popup</button><br><br>
