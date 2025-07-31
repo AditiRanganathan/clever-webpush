@@ -15,290 +15,53 @@
 	<title>Simple web page</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
-		var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
-		clevertap.account.push({"id": "TEST-65W-KK5-9W7Z"});
-		clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
-		clevertap.privacy.push({useIP: true}); //set the flag to true, if the user agrees to share their IP data
-		clevertap.dismissSpamControl=true;
-		clevertap.enablePersonalization = true;
-			(function () {
-					var wzrk = document.createElement('script');
-					wzrk.type = 'text/javascript';
-					wzrk.async = true;
-					wzrk.src = ('https:' == document.location.protocol ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/clevertap.min.js';
-					var s = document.getElementsByTagName('script')[0];
-					s.parentNode.insertBefore(wzrk, s);
-					
-			})();
-		
-   	</script>
+		(function() {
+		  const userKey = "ct_user_id";
+		  const storedId = localStorage.getItem(userKey);
+		  const urlParams = new URLSearchParams(window.location.search);
+		  const userId = urlParams.get("uid"); // simulate login ID from URL for testing
 
-<script type="module">
-	// Import the functions you need from the SDKs you need
-	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-	import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-	// TODO: Add SDKs for Firebase products that you want to use
-	// https://firebase.google.com/docs/web/setup#available-libraries
-  
-	// Your web app's Firebase configuration
-	// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-	const firebaseConfig = {
-	  apiKey: "AIzaSyD3R4gAS4AqH9bxzHorXM3NxnlXN_I2OGs",
-	  authDomain: "clevertap-demo-d20b1.firebaseapp.com",
-	  projectId: "clevertap-demo-d20b1",
-	  storageBucket: "clevertap-demo-d20b1.appspot.com",
-	  messagingSenderId: "1064052206509",
-	  appId: "1:1064052206509:web:9300520e1464c03a8dcf24",
-	  measurementId: "G-W89R246VCS"
-	};
-  
-	// Initialize Firebase
-	const app = initializeApp(firebaseConfig);
-	const analytics = getAnalytics(app);
-	
-  </script>
+		  let clevertapId = storedId;
 
-	<script>
-		function userProfile(){
-		clevertap.onUserLogin.push({
-		 "Site": {
-		   "Name": "Shruti Mishra",            // String
-		   "Identity": 10,              // String or number
-		   "Email": "shruti@gmail.com",         // Email address of the user
-		   "Phone": "+919234516711",           // Phone (with the country code)
-		   "Gender": "F",                     // Can be either M or F
-		   "DOB": new Date("2001-05-15"),                 // Date of Birth. Date object
-		   "Subscription": "gold",
-		// optional fields. controls whether the user will be sent email, push etc.
-		   "MSG-email": false,                // Disable email notifications
-		   "MSG-push": true,                  // Enable push notifications
-		   "MSG-sms": true,                   // Enable sms notifications
-		   "MSG-whatsapp": true,              // Enable WhatsApp notifications
-		 }
-		})
-
-		clevertap.profile.push({
-		 "Site": {
-		   "Price": 25,
-		   "Subscription": "silver"
-		 }
-		});
-		}
-
-		clevertap.event.push("Anonymous event triggered for test");
-		if ("geolocation" in navigator) {
-    		// Request user's current position
-		    navigator.geolocation.getCurrentPosition(success);
-		} else {
-		    console.error('Geolocation is not supported by your browser');
-		}
-
-		function success(position) {
-		    var lat = position.coords.latitude;
-		    var lng = position.coords.longitude;
-		    clevertap.getLocation(lat, lng);
-		}
-	
-		
-		function btn()
-			{
-				clevertap.event.push("Aditi push event triggered");
-				clevertap.event.push("Product viewed", {
-				    "Product name": "Shoes",
-				    "Category": "Women Accessories",
-				    "Price": 65.99,
-				    "Date": new Date()
-				});
-				clevertap.handleIncrementValue('Price', 10);
-				clevertap.notifications.push({
-				"titleText": "Would you like to receive Push Notifications?",
-				"bodyText": "We promise to only send you relevant content and give you updates on your transactions",
-				"okButtonText": "Sign me up!",
-				"rejectButtonText": "No thanks",
-				"okButtonColor":"#F28046",
-				"serviceWorkerPath": "./serviceWorkerPath.js"
-  	});
-			}
-
-
-		function webpopup()
-	{
-		clevertap.event.push("Pop event triggered for test");
-	}
-
-		function webleadpopup()
-	{
-		clevertap.event.push("Pop lead event triggered for test");
-	}
-
-		function webclevertappopup()
-	{
-		clevertap.event.push("Web Popup event triggered for test");
-	}
-
-		function webinbox()
-	{
-		clevertap.event.push("Aditi web inbox event triggered");
-	}
-
-		function webnative()
-	{
-		clevertap.event.push("web native display event triggered");
-		document.addEventListener("CT_web_native_display", function(event) {
-		  const data = event.detail;
-			const topic = data.kv.topic;
-			console.log(topic);
-			switch (topic) {
-				case "Cart drop-off": {
-					renderCartDropOffPersonalisationCampaign(data)
-					break;
-		   	}
+		  if (userId) {
+		    clevertapId = userId;
+		    localStorage.setItem(userKey, clevertapId);
+		  } else if (!storedId) {
+		    clevertapId = "anon_" + Date.now();
+		    localStorage.setItem(userKey, clevertapId);
 		  }
-		});
+
+		  window.clevertap = {
+		    event: [],
+		    profile: [],
+		    account: [],
+		    onUserLogin: [],
+		    notifications: [],
+		    config: {
+		      customId: clevertapId,
+		    },
+		    privacy: []
+		  };
+		  clevertap.account.push({"id": "TEST-65W-KK5-9W7Z"});
+		  clevertap.privacy.push({optOut: false});
+		  clevertap.privacy.push({useIP: true});
+		  clevertap.dismissSpamControl=true;
+		  clevertap.enablePersonalization = true;
 		
-	}
-
-		function webexit()
-	{
-		clevertap.event.push("web exit intent event triggered");
-	}
-
-		function custompopup()
-		{
-			clevertap.event.push("Pop event triggered for test");
-			let customNotificationPayload = {
-			    msgId: ' '
-			 }
-			
-			clevertap.notificationCallback = function(msg){
-			      //raise the notification viewed and clicked events in the callback
-			      clevertap.renderNotificationViewed(customNotificationPayload);
-			      console.log(JSON.stringify(msg));            //your custom rendering implementation here
-			      var $button = jQuery("<button></button>");   //element on whose click you want to raise the notification clicked event
-			      $button.click(function(){
-			         clevertap.renderNotificationClicked(customNotificationPayload);
-			     });
-			};
-		}
-
-		
-		function renderCartDropOffPersonalisationCampaign(data) {
-		  console.log("Received data:", data);
-		  const name = data.kv.Name;
-		  const product = data.kv.Product;
-		  const containerEl = document.getElementById('container')
-		  const userNameEl = containerEl.querySelector('#user-name'); // Corrected from getElementById to querySelector
-		  userNameEl.innerText = name;
-		  const productNameEl = containerEl.querySelector('#product-name'); // Corrected from getElementById to querySelector
-		  productNameEl.innerText = product;
-		  const imageURL = data.kv.ImageURL;
-		  const imageEl = document.getElementById('image-container');
-		  imageEl.src = imageURL;
-		  const redirectURL = data.kv.redirectURL;
-		  console.log("Extracted Name:", name);
-	          console.log("Extracted Product:", product);
-	          console.log("Extracted Image URL:", imageURL);
-	          console.log("Extracted Redirect URL:", redirectURL);
-		  console.log("Image element:", imageEl);
-
-		  clevertap.renderNotificationViewed(data);
-		  containerEl.addEventListener('click', () => {
-		  	clevertap.renderNotificationClicked(data);
-		  });
-
-		  if (imageEl) {
-	                imageEl.addEventListener('click', () => {
-	                    if (redirectURL) {
-	                        console.log(`Redirecting to: ${redirectURL}`); // Debugging log
-	                        window.location.href = redirectURL;
-	                    }
-	                });
-	            } else {
-	                console.error('Image element not found.');
-	            }
-
-		}
-
-		function customhtmlpop(){
-			clevertap.event.push("Custom Pop event triggered for clevertap");
-		}
-
-		function removeprop(){
-			clevertap.removeValueForKey("Location");
-		}
-
-		function addvalue(){
-			clevertap.handleIncrementValue('Price', 10);
-		}
-
-		function adduser(){
-			// If the property is not available, this call will return undefined
-			var name = clevertap.profile.getAttribute("Name");
-			console.log("Name:"+name);
-			var email = clevertap.profile.getAttribute("Email");
-			console.log("Email:"+email);
-		}
-
-		function addevent(){
-			clevertap.event.push("Charged", {
-			    "Amount": 700,
-			    "Payment mode": "Credit Card",
-			    "Charged ID": 56123,
-			    "Items": [
-			        {
-			            "Category": "Books",
-			            "Book name": "Harry Potter",
-			            "Quantity": 1,
-				    "Author name":"J K Rowling"
-			        },
-			        {
-			            "Category": "Books",
-			            "Book name": "2 states",
-			            "Quantity": 2,
-				    "Author name":"Chetan Bhagat"
-			        },
-			        {
-			            "Category": "Books",
-			            "Book name": "Experiments of Truth",
-			            "Quantity": 5,
-				    "Author name":"Mahatma Gandhi"
-			        }
-			    ]
-		
-			});
-			
-		}
-
-		function gtmUserProfile()
-			{
-				console.log('start gtmUserProfile called');
-				dataLayer.push({'name': 'Akiya'});
-				dataLayer.push({'email': 'akiya@clevertap.com'});
-				dataLayer.push({'identity': 18});
-				dataLayer.push({'phone': '+919922902191'});
-				dataLayer.push({'event':'gtmUserProfile Pushed'});
-				console.log('end gtmUserProfile called');
-			}
-
-		function gtmEventPush()
-			{
-				dataLayer.push({'event':'gtmUserEvent Pushed'});
-			}
-
-		function gtmWebEventPush()
-			{
-				dataLayer.push({'event':'gtmWebPushEvent Pushed'});
-			}
-		
-		</script>
-	
-  <link rel="stylesheet" href="style.css">
+		  var wzrk = document.createElement('script');
+		  wzrk.type = 'text/javascript';
+		  wzrk.async = true;
+		  wzrk.src = (document.location.protocol === 'https:' ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/clevertap.min.js';
+		  var s = document.getElementsByTagName('script')[0];
+		  s.parentNode.insertBefore(wzrk, s);
+		})();
+	</script>
 </head>
-
 <body>
-	<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MLB8GLSQ"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- Your existing body remains unchanged -->
+  <!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MLB8GLSQ"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
 	
 	<style>
@@ -395,5 +158,4 @@
 	</div>
 </div>
 </body>
-
 </html>
