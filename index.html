@@ -137,6 +137,31 @@
 		
 		  // ----------- Login Function (Call This Dynamically) -------------
 		  function loginUser(identity, email, phone) {
+		    var clevertap = {
+		    event: [],
+		    profile: [],
+		    account: [],
+		    onUserLogin: [],
+		    notifications: [],
+		    privacy: [],
+		    config: {
+		      customId: customId, // used across subdomains
+		    },
+		  };
+		
+		  clevertap.account.push({ id: "TEST-65W-KK5-9W7Z" });
+		  clevertap.privacy.push({ optOut: false });
+		  clevertap.privacy.push({ useIP: false });
+		
+		  (function () {
+		    var wzrk = document.createElement("script");
+		    wzrk.type = "text/javascript";
+		    wzrk.async = true;
+		    wzrk.src = "https://d2r1yp2w7bby2u.cloudfront.net/js/clevertap.min.js";
+		    var s = document.getElementsByTagName("script")[0];
+		    s.parentNode.insertBefore(wzrk, s);
+		  })();
+			  
 		    let existingId = getStoredUserId(identity);
 		    if (!existingId) {
 		      existingId = "user_" + identity;
