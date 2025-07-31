@@ -145,7 +145,10 @@
 		
 		    // Set cookie so CleverTap uses this ID on next page load
 		    setCookie("ct_custom_id", existingId, 365);
-		
+
+	            console.log("identity:", identity, typeof identity);
+		    console.log("email:", email, typeof email);
+	            console.log("phone:", phone, typeof phone);
 		    clevertap.onUserLogin.push({
 		      Site: {
 		        Identity: identity,
