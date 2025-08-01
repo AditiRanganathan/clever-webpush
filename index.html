@@ -1,47 +1,119 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-	</script>
-	<!-- Google Tag Manager -->
-	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-MLB8GLSQ');</script>
-	<!-- End Google Tag Manager -->
-	
-	<title>Simple web page</title>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- 	<script type="text/javascript">
-		var clevertap = {event:[], 
-				 profile:[], 
-				 account:[], 
-				 onUserLogin:[], 
-				 notifications:[], 
-				 config: {
-					customId: "your_custom_user_id",
-				    },
-				 privacy:[]};
-		clevertap.account.push({"id": "TEST-65W-KK5-9W7Z"});
-		clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
-		clevertap.privacy.push({useIP: true}); //set the flag to true, if the user agrees to share their IP data
-		clevertap.dismissSpamControl=true;
-		clevertap.enablePersonalization = true;
-			(function () {
-					var wzrk = document.createElement('script');
-					wzrk.type = 'text/javascript';
-					wzrk.async = true;
-					wzrk.src = ('https:' == document.location.protocol ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/clevertap.min.js';
-					var s = document.getElementsByTagName('script')[0];
-					s.parentNode.insertBefore(wzrk, s);
-					
-			})();
-		
-   	</script> -->
+  <title>Simple web page</title>
+  
+  <!-- Google Tag Manager -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MLB8GLSQ');
+  </script>
+  <!-- End Google Tag Manager -->
 
-<script type="module">
+  <script>
+    function setCookie(name, value, days) {
+      const expires = new Date(Date.now() + days * 86400000).toUTCString();
+      document.cookie = `${name}=${value}; expires=${expires}; path=/; domain=.yourdomain.com`;
+    }
+
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+      return match ? match[2] : null;
+    }
+
+    function generateRandomId(prefix = 'anon') {
+      return `${prefix}_${Math.random().toString(36).substring(2)}${Date.now()}`;
+    }
+
+    function getCustomIdForIdentity(identity) {
+      return getCookie(`ct_custom_id_${identity}`);
+    }
+
+    function storeCustomIdForIdentity(identity, customId) {
+      setCookie(`ct_custom_id_${identity}`, customId, 365);
+    }
+
+    function setActiveCustomId(customId) {
+      setCookie('ct_custom_id', customId, 365);
+    }
+
+    // ---------- Initial Setup ----------
+    let customId = getCookie('ct_custom_id');
+    if (!customId) {
+      customId = generateRandomId();
+      setActiveCustomId(customId);
+    }
+
+    var clevertap = {
+      event: [],
+      profile: [],
+      account: [],
+      onUserLogin: [],
+      notifications: [],
+      privacy: [],
+      config: {
+        customId: customId,
+      },
+    };
+
+    clevertap.account.push({ id: "TEST-65W-KK5-9W7Z" });
+    clevertap.privacy.push({ optOut: false });
+    clevertap.privacy.push({ useIP: false });
+
+    (function () {
+      var wzrk = document.createElement("script");
+      wzrk.type = "text/javascript";
+      wzrk.async = true;
+      wzrk.src = "https://d2r1yp2w7bby2u.cloudfront.net/js/clevertap.min.js";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(wzrk, s);
+    })();
+
+    // ---------- Login Function ----------
+    function loginUser(identity, email, phone) {
+      if (!identity) {
+        console.error("Identity is required to log in.");
+        return;
+      }
+
+      let existingCustomId = getCustomIdForIdentity(identity);
+      if (!existingCustomId) {
+        existingCustomId = `user_${identity}`;
+        storeCustomIdForIdentity(identity, existingCustomId);
+      }
+
+      setActiveCustomId(existingCustomId);
+
+      clevertap.onUserLogin.push({
+        Site: {
+          Identity: identity,
+          Email: email || undefined,
+          Phone: phone || undefined,
+        },
+      });
+
+      console.log("Logged in user with identity:", identity);
+      console.log("Using customId:", existingCustomId);
+    }
+
+    // ---------- Logout Function ----------
+    function logoutUser() {
+      setActiveCustomId(""); // Clear ct_custom_id cookie
+      location.reload();
+    }
+  </script>
+
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    label, input, button { display: block; margin-bottom: 10px; }
+    .container { max-width: 600px; margin: auto; }
+  </style>
+
+  <script type="module">
 	// Import the functions you need from the SDKs you need
 	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 	import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
@@ -67,128 +139,6 @@
   </script>
 
 	<script>
-		function setCookie(name, value, days) {
-		    const expires = new Date(Date.now() + days * 86400000).toUTCString();
-		    document.cookie = `${name}=${value}; expires=${expires}; path=/; domain=.yourdomain.com`;
-		  }
-		
-		  function getCookie(name) {
-		    const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
-		    return match ? match[2] : null;
-		  }
-		
-		  function generateAnonymousId() {
-		    return "anon_" + Math.random().toString(36).substring(2) + Date.now();
-		  }
-		
-		  function getStoredUserId(identity) {
-		    try {
-		      const map = JSON.parse(localStorage.getItem("clevertap_user_map") || "{}");
-		      return map[identity] || null;
-		    } catch {
-		      return null;
-		    }
-		  }
-		
-		  function storeUserId(identity, id) {
-		    let map = {};
-		    try {
-		      map = JSON.parse(localStorage.getItem("clevertap_user_map") || "{}");
-		    } catch {}
-		    map[identity] = id;
-		    localStorage.setItem("clevertap_user_map", JSON.stringify(map));
-		  }
-		
-		  // ----------- Identity Management Logic -------------
-		  const currentIdentity = null; // Will be set on login
-		  let customId = getCookie("ct_custom_id");
-		
-		  if (!customId) {
-		    // Anonymous user, generate new anon ID
-		    customId = generateAnonymousId();
-		    setCookie("ct_custom_id", customId, 365);
-		  }
-		
-		  // ----------- CleverTap Init -------------
-		  var clevertap = {
-		    event: [],
-		    profile: [],
-		    account: [],
-		    onUserLogin: [],
-		    notifications: [],
-		    privacy: [],
-		    config: {
-		      customId: customId, // used across subdomains
-		    },
-		  };
-		
-		  clevertap.account.push({ id: "TEST-65W-KK5-9W7Z" });
-		  clevertap.privacy.push({ optOut: false });
-		  clevertap.privacy.push({ useIP: false });
-		
-		  (function () {
-		    var wzrk = document.createElement("script");
-		    wzrk.type = "text/javascript";
-		    wzrk.async = true;
-		    wzrk.src = "https://d2r1yp2w7bby2u.cloudfront.net/js/clevertap.min.js";
-		    var s = document.getElementsByTagName("script")[0];
-		    s.parentNode.insertBefore(wzrk, s);
-		  })();
-		
-		  // ----------- Login Function (Call This Dynamically) -------------
-		  function loginUser(identity, email, phone) {
-		    var clevertap = {
-		    event: [],
-		    profile: [],
-		    account: [],
-		    onUserLogin: [],
-		    notifications: [],
-		    privacy: [],
-		    config: {
-		      customId: customId, // used across subdomains
-		    },
-		  };
-		
-		  clevertap.account.push({ id: "TEST-65W-KK5-9W7Z" });
-		  clevertap.privacy.push({ optOut: false });
-		  clevertap.privacy.push({ useIP: false });
-		
-		  (function () {
-		    var wzrk = document.createElement("script");
-		    wzrk.type = "text/javascript";
-		    wzrk.async = true;
-		    wzrk.src = "https://d2r1yp2w7bby2u.cloudfront.net/js/clevertap.min.js";
-		    var s = document.getElementsByTagName("script")[0];
-		    s.parentNode.insertBefore(wzrk, s);
-		  })();
-			  
-		    let existingId = getStoredUserId(identity);
-		    if (!existingId) {
-		      existingId = "user_" + identity;
-		      storeUserId(identity, existingId);
-		    }
-		
-		    // Set cookie so CleverTap uses this ID on next page load
-		    setCookie("ct_custom_id", existingId, 365);
-
-	            console.log("identity:", identity, typeof identity);
-		    console.log("email:", email, typeof email);
-	            console.log("phone:", phone, typeof phone);
-		    clevertap.onUserLogin.push({
-		      Site: {
-		        Identity: identity,
-		        Email: email,
-		        Phone: phone,
-		      },
-		    });
-		  }
-		
-		  // ----------- Logout Function (Optional) -------------
-		  function logoutUser() {
-		    // Clear the ct_custom_id cookie to start as new anon user next time
-		    setCookie("ct_custom_id", "", -1);
-		    location.reload();
-		  }
 		function userProfile(){
 		clevertap.onUserLogin.push({
 		 "Site": {
@@ -426,12 +376,14 @@
 </head>
 
 <body>
-	<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MLB8GLSQ"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	<!-- End Google Tag Manager (noscript) -->
-	
-	<style>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MLB8GLSQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <style>
 	  #image-container {
 	    width: 100%;
 	    height: 400px; /* Adjust the height as needed */
@@ -489,9 +441,8 @@
 		} */
 	</style> 
 
-	
-	<div id="container">
-	  <img id="image-container" src="https://wi.wallpapertip.com/wsimgs/33-332564_foto-kota-metropolita-keren-tokyo-tokyo-with-love.jpg"/>
+  <div class="container">
+    <img id="image-container" src="https://wi.wallpapertip.com/wsimgs/33-332564_foto-kota-metropolita-keren-tokyo-tokyo-with-love.jpg"/>
 	  <div class="message">
 	  	Hello <span id="user-name">user</span>,
 	   	<p>Still thinking about the <span id="product-name">item</span> in your cart?</p>
@@ -503,24 +454,25 @@
 	<div id="clever">
 		<p>Welcome to my demo webpage</p>
 		<div class="native"></div>
-		<form onsubmit="event.preventDefault(); 
-		  const identity = document.getElementById('identity').value;
-		  const email = document.getElementById('email').value;
-		  const phone = document.getElementById('phone').value;
-		  loginUser(identity, email, phone);">
-		      <label for="identity">Identity (required):</label><br />
-		      <input type="text" id="identity" required /><br /><br />
-		
-		      <label for="email">Email:</label><br />
-		      <input type="email" id="email" /><br /><br />
-		
-		      <label for="phone">Phone:</label><br />
-		      <input type="text" id="phone" /><br /><br />
-		
-		      <button type="submit">Login</button>
-		      <button type="button" onclick="logoutUser();">Logout</button>
-		</form>
-		<button onclick="userProfile()">User Profile</button><br><br>
+
+    <form onsubmit="event.preventDefault(); 
+      const identity = document.getElementById('identity').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      loginUser(identity, email, phone);">
+      <label for="identity">Identity (required):</label>
+      <input type="text" id="identity" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" />
+
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" />
+
+      <button type="submit">Login</button>
+      <button type="button" onclick="logoutUser();">Logout</button>
+    </form>
+	<button onclick="userProfile()">User Profile</button><br><br>
 		<button onclick="btn()">Clevertap push</button><br><br>
 		<button onclick="webpopup()">Clevertap popup</button><br><br>
 		<button onclick="custompopup()">Clevertap payload popup</button><br><br>
@@ -539,8 +491,6 @@
 		<button onclick="addvalue()">Increment Price</button>
 		<button onclick="adduser()">Personalization</button>
 		<button onclick="addevent()">Charged event</button>
-	</div>
-</div>
+  </div>
 </body>
-
 </html>
