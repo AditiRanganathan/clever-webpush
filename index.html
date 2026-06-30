@@ -98,7 +98,7 @@
 			{
 				clevertap.event.push("Aditi push event triggered");
 				clevertap.event.push("Product viewed", {
-				    "Product name": "Shoes",
+				    "Title": "Shoes",
 				    "Category": "Women Accessories",
 				    "Price": 65.99,
 				    "Date": new Date()
@@ -132,7 +132,12 @@
 
 		function webinbox()
 	{
-		clevertap.event.push("Aditi web inbox event triggered");
+		clevertap.event.push("Added to Cart", {
+				    "Product Name": "Shoes",
+				    "Category": "Mens Accessories",
+				    "Price": "price",
+				    "Date": new Date()
+				});
 	}
 
 		function webnative()
