@@ -117,7 +117,12 @@
 
 		function webpopup()
 	{
-		clevertap.event.push("Pop event triggered for test");
+		clevertap.event.push("Pop event triggered for test", {
+				    "Product Name": "Bags",
+				    "Category": "Women Accessories",
+				    "Price": "price",
+				    "Date": new Date()
+				});
 	}
 
 		function webleadpopup()
@@ -127,7 +132,12 @@
 
 		function webclevertappopup()
 	{
-		clevertap.event.push("Web Popup event triggered for test");
+		clevertap.event.push("Web Popup event triggered for test", {
+				    "Product Name": "Bags",
+				    "Category": "Women Accessories",
+				    "Price": "price",
+				    "Date": new Date()
+				});
 	}
 
 		function webinbox()
